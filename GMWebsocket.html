@@ -5,6 +5,11 @@
 	</head>
 	
 	<style>
+		body {
+			font-family: Courier New;
+			font-weight: bold;
+			font-size: 12px;
+		}
 	</style>
 	
 	<script>
@@ -30,7 +35,7 @@
 		
 		wsReceiveMessage = function( message ){
 			switch( message.type ){
-				case "new_text": document.getElementById( "messageFeed" ).innerText += message.contents + "\n"; break;
+				case "new_text": document.getElementById( "messageFeed" ).innerHTML += message.contents + "<br>"; break;
 			}
 			
 			return;
