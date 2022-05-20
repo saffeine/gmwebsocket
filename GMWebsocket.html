@@ -40,10 +40,20 @@
 			
 			return;
 		};
+		
+		mouseMove = function( event ){
+			var data = {
+				x: event.clientX / window.innerWidth,
+				y: event.clientY / window.innerHeight
+			};
+			
+			sock.send( JSON.stringify( data ) );
+			return;
+		};
 	
 	</script>
 	
-	<body>
+	<body onmousemove="mouseMove( event );">
 		<script>
 			sock = wsConnect( "81.99.154.12", 4130 );
 		</script>
