@@ -1,0 +1,50 @@
+<html>
+
+	<head>
+		<title>Websocket Test</title>
+	</head>
+	
+	<style>
+	</style>
+	
+	<script>
+	
+		wsConnect = function( url, port, onConnect ){
+			var websocket = ( new WebSocket( "ws://" + String( url ) + ":" + String( port ) + "/" ) );
+			websocket.onmessage = function( data ){
+				data.data.text().then( function( dat_ ){ wsReceiveMessage( JSON.parse( dat_ ) ) } );
+			};
+			
+			if( onConnect != undefined ){ onConnect(); }
+			return websocket;
+		};
+		
+		wsDisconnect = function( websocket ){
+			websocket.close();
+		};
+		
+		wsParseData = function( data ){
+			data.data.text().then( function( dat ){ res = dat; } );
+			return res;
+		};
+		
+		wsReceiveMessage = function( message ){
+			switch( message.type ){
+				case "new_text": document.getElementById( "messageFeed" ).innerText += message.contents + "\n"; break;
+			}
+			
+			return;
+		};
+	
+	</script>
+	
+	<body>
+		<script>
+			sock = wsConnect( "127.0.0.1", 4130 );
+		</script>
+		
+		<div id="messageFeed">
+		</div>
+	</body>
+
+</html>
